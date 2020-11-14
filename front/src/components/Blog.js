@@ -1,12 +1,13 @@
 import React from "react";
 import Post from "./Post";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
   return (
     <div className="container">
-      <div className="d-flex">
+      <Link to="/id">
         <Post />
-      </div>
+      </Link>
     </div>
   );
 };

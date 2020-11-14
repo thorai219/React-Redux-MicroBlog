@@ -1,10 +1,14 @@
-/** Database connection for Microblog. */
-
+/** Database config for database. */
 const { Client } = require("pg");
 
-const client = new Client(process.env.DATABASE_URL || "postgresql:///microblog");
+const db = new Client({
+  user: "postgres",
+  host: "localhost",
+  database: "books",
+  password: "1234",
+  port: 5432,
+});
 
-client.connect();
+db.connect();
 
-
-module.exports = client;
+module.exports = db;

@@ -1,7 +1,7 @@
 import React from "react";
 import Blog from "./components/Blog";
 import NewPostForm from "./components/NewPostForm";
-import Post from "./components/Post";
+import ShowPost from "./components/ShowPost";
 import { Switch, Redirect, Route } from "react-router-dom";
 
 const Routes = () => {
@@ -13,8 +13,8 @@ const Routes = () => {
       <Route exact path="/new">
         <NewPostForm />
       </Route>
-      <Route exact path="/:postId">
-        <Post />
+      <Route exact path="/id">
+        <ShowPost />
       </Route>
       <Redirect to="/" />
     </Switch>

@@ -3,7 +3,7 @@ import React from "react";
 const Post = () => {
   return (
     <div>
-      <div className="card col-md-3">
+      <div className="card">
         <div className="card-body">
           <h4 className="card-title">Title</h4>
           <h5 className="card-subtitle text-muted">Description</h5>
