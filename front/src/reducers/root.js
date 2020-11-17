@@ -1,8 +1,8 @@
 import posts from "./posts";
-import titles from "./posts";
+import titles from "./titles";
 import { combineReducers } from "redux";
 
-export default function combineReducers({
+export default combineReducers({
   posts,
   titles,
 });

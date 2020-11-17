@@ -1,28 +1,23 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
-const NewPostForm = () => {
-  const [post, setPost] = useState({
-    title: "",
-    description: "",
-    body: "",
+const PostForm = ({ post, save, cancel }) => {
+  const [postData, setPostData] = useState({
+    title: post.title,
+    description: post.description,
+    body: post.body,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setPost((p) => ({
-      ...p,
+    setPostData((post) => ({
+      ...post,
       [name]: value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setPost({
-      title: "",
-      description: "",
-      body: "",
-    });
+    save(postData);
   };
 
   return (
@@ -36,7 +31,7 @@ const NewPostForm = () => {
             type="text"
             name="title"
             onChange={handleChange}
-            value={post.title}
+            value={postData.title}
           />
         </div>
         <div className="form-group">
@@ -46,7 +41,7 @@ const NewPostForm = () => {
             type="text"
             name="description"
             onChange={handleChange}
-            value={post.description}
+            value={postData.description}
           />
         </div>
         <div className="form-group">
@@ -57,20 +52,22 @@ const NewPostForm = () => {
             type="text"
             name="body"
             onChange={handleChange}
-            value={post.body}
+            value={postData.body}
           />
         </div>
-        <div class="d-flex justify-content-end">
-          <Link to="/" className="btn btn-outline-success m-2">
-            Save
-          </Link>
-          <Link to="/" className="btn btn-outline-danger m-2">
+        <div className="d-flex justify-content-end">
+          <button className="btn btn-outline-success">Save</button>
+          <button className="btn btn-outline-danger" onClick={cancel}>
             Cancel
-          </Link>
+          </button>
         </div>
       </form>
     </div>
   );
 };
 
-export default NewPostForm;
+PostForm.defaultProps = {
+  post: { title: "", description: "", body: "" },
+};
+
+export default PostForm;

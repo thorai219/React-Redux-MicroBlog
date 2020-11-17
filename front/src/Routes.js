@@ -1,20 +1,20 @@
 import React from "react";
-import Blog from "./components/Blog";
-import NewPostForm from "./components/NewPostForm";
-import ShowPost from "./components/ShowPost";
+import Home from "./components/Home";
+import NewPost from "./components/NewPost";
+import Post from "./components/Post";
 import { Switch, Redirect, Route } from "react-router-dom";
 
 const Routes = () => {
   return (
     <Switch>
       <Route exact path="/">
-        <Blog />
+        <Home />
       </Route>
       <Route exact path="/new">
-        <NewPostForm />
+        <NewPost />
       </Route>
-      <Route exact path="/id">
-        <ShowPost />
+      <Route exact path="/:postId">
+        <Post />
       </Route>
       <Redirect to="/" />
     </Switch>

@@ -17,7 +17,7 @@ function makeTitleFromPost({ id, title, description, votes }) {
 export default function rootReducer(state = [], action) {
   switch (action.type) {
     case FETCH_TITLE_DESC:
-      return sortByVote([...action.title]);
+      return sortByVote([...action.titles]);
 
     case ADD_POST:
       return sortByVote([...state, makeTitleFromPost(action.post)]);
@@ -27,12 +27,12 @@ export default function rootReducer(state = [], action) {
 
     case UPDATE_POST:
       return state.map((t) =>
-        t.id === action.post.id ? makeTitleFromPost(action.post) : title
+        t.id === action.post.id ? makeTitleFromPost(action.post) : t.title
       );
     case UPDATE_VOTE:
       return sortByVote(
         state.map((t) =>
-          t.id === action.postId ? { ...title, votes: action.votes } : title
+          t.id === action.postId ? { ...t.title, votes: action.votes } : t
         )
       );
     default:
