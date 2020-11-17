@@ -12,13 +12,6 @@ import {
 const API_URL =
   process.env.REACT_APP_API_URL || "http://localhost:5000/api/posts";
 
-function getPost(post) {
-  return {
-    type: FETCH_POSTS,
-    post,
-  };
-}
-
 export function getPostAPI(id) {
   return async function (dispatch) {
     const res = await axios.get(`${API_URL}/${id}`);
@@ -26,9 +19,9 @@ export function getPostAPI(id) {
   };
 }
 
-function addPost(post) {
+function getPost(post) {
   return {
-    type: ADD_POST,
+    type: FETCH_POSTS,
     post,
   };
 }
@@ -44,10 +37,10 @@ export function sendPostAPI(title, description, body) {
   };
 }
 
-function removePost(postId) {
+function addPost(post) {
   return {
-    type: REMOVE_POST,
-    postId,
+    type: ADD_POST,
+    post,
   };
 }
 
@@ -58,10 +51,10 @@ export function removePostAPI(id) {
   };
 }
 
-function updatePost(post) {
+function removePost(postId) {
   return {
-    type: UPDATE_POST,
-    post,
+    type: REMOVE_POST,
+    postId,
   };
 }
 
@@ -76,6 +69,20 @@ export function updatePostAPI(id, title, description, body) {
   };
 }
 
+function updatePost(post) {
+  return {
+    type: UPDATE_POST,
+    post,
+  };
+}
+
+export function sendVoteAPI(id, direction) {
+  return async function (dispatch) {
+    const res = await axios.post(`${API_URL}/${id}/vote/${direction}`);
+    return dispatch(vote(id, res.data.votes));
+  };
+}
+
 function vote(postId, votes) {
   return {
     type: UPDATE_VOTE,
@@ -84,10 +91,10 @@ function vote(postId, votes) {
   };
 }
 
-export function sendVoteAPI(id, direction) {
+export function removeCommentAPI(postId, commentId) {
   return async function (dispatch) {
-    const res = await axios.post(`${API_URL}/${id}/vote/${direction}`);
-    return dispatch(vote(id, res.data.votes));
+    await axios.delete(`${API_URL}/${postId}/comments/${commentId}`);
+    return dispatch(removeComment(postId, commentId));
   };
 }
 
@@ -99,10 +106,10 @@ function removeComment(postId, commentId) {
   };
 }
 
-export function removeCommentAPI(postId, commentId) {
+export function sendCommentAPI(postId, text) {
   return async function (dispatch) {
-    await axios.delete(`${API_URL}/${postId}/comments/${commentId}`);
-    return dispatch(removeComment(postId, commentId));
+    const res = await axios.post(`${API_URL}/${postId}/comments`, { text });
+    return dispatch(addComment(postId, res.data));
   };
 }
 
@@ -111,12 +118,5 @@ function addComment(postId, comment) {
     type: POST_COMMENT,
     postId,
     comment,
-  };
-}
-
-export function sendCommentAPI(postId, text) {
-  return async function (dispatch) {
-    const res = await axios.post(`${API_URL}/${postId}/comments`, { text });
-    return dispatch(addComment(postId, res.data));
   };
 }

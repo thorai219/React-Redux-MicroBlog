@@ -11,6 +11,10 @@ const TitleList = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
+  const vote = (direction, id) => {
+    dispatch(sendVoteAPI(id, direction));
+  };
+
   useEffect(() => {
     async function fetchTitle() {
       await dispatch(fetchTitleAndDesc());
@@ -22,14 +26,10 @@ const TitleList = () => {
     }
   }, [dispatch, isLoading]);
 
-  const vote = (direction, id) => {
-    dispatch(sendVoteAPI(id, direction));
-  };
-
   if (isLoading) return <b>Loading</b>;
 
   if (!isLoading && titles.length === 0) {
-    return <b>Please add a post!</b>;
+    return <b>No posts yet</b>;
   }
 
   return (

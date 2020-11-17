@@ -6,7 +6,7 @@ const CommentList = ({ comments = [], deleteComment }) => {
     <Comment
       key={c.id}
       id={c.id}
-      comment={c.comments}
+      comment={c.text}
       deleteComment={deleteComment}
     />
   ));

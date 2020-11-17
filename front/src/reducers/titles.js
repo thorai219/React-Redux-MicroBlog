@@ -32,7 +32,7 @@ export default function rootReducer(state = [], action) {
     case UPDATE_VOTE:
       return sortByVote(
         state.map((t) =>
-          t.id === action.postId ? { ...t.title, votes: action.votes } : t
+          t.id === action.postId ? { ...t, votes: action.votes } : t
         )
       );
     default:

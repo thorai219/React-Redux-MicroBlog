@@ -15,10 +15,12 @@ const CommentForm = ({ submitComment }) => {
 
   return (
     <div>
+      <h4>Leave a Comment</h4>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <input
+          <textarea
             type="text"
+            style={{ height: "100px", resize: "none" }}
             onChange={handleChange}
             value={comment}
             className="form-control"
@@ -26,7 +28,9 @@ const CommentForm = ({ submitComment }) => {
             placeholder="add a comment"
           />
         </div>
-        <button className="btn btn-outline-primary">Add</button>
+        <div className="d-flex justify-content-end">
+          <button className="btn btn-outline-primary">Add</button>
+        </div>
       </form>
     </div>
   );

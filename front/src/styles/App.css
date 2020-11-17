@@ -25,8 +25,14 @@
 
 .article {
   border: 1px solid #000000;
+  margin-bottom: 25px;
 }
 
 .content {
   padding: 15px;
+}
+
+.comments-container {
+  width: 1200px;
+  margin: 0 auto;
 }
