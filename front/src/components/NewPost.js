@@ -19,7 +19,6 @@ const NewPost = () => {
 
   return (
     <main>
-      <h2>New Post</h2>
       <PostForm save={add} cancel={cancel} />
     </main>
   );

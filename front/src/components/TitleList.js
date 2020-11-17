@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchTitleAndDesc } from "../actions/fetchTitleDesc";
-import { Link } from "react-router-dom";
-import { sendVoteAPI } from "../actions/posts";
+import { fetchTitleAndDesc } from "../actions/titles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+import { sendVoteAPI } from "../actions/posts";
 
 const TitleList = () => {
-  const titles = useSelector((state) => state.titles);
+  const titles = useSelector((st) => st.titles);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -26,29 +26,43 @@ const TitleList = () => {
     dispatch(sendVoteAPI(id, direction));
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <b>Loading</b>;
+
   if (!isLoading && titles.length === 0) {
-    return <p>Add a Post</p>;
+    return <b>Please add a post!</b>;
   }
 
-  const titlesList = titles.map((t) => (
-    <li className="row" key={t.id}>
-      <FontAwesomeIcon
-        className="text-success"
-        onClick={(e) => vote("up", t.id)}
-        icon={faArrowUp}
-      />
-      <FontAwesomeIcon
-        className="text-danger"
-        onClick={(e) => vote("down", t.id)}
-        icon={faArrowDown}
-      />
-      <Link to={"/" + t.id}>{t.title}</Link>
-      <p>{t.description}</p>
-    </li>
-  ));
-
-  return <ul>{titlesList}</ul>;
+  return (
+    <div>
+      {titles.map((title) => (
+        <div key={title.id} className="card">
+          <Link className="post" to={"/" + title.id}>
+            <div className="card-body">
+              <div className="card-title">
+                <p>{title.title}</p>
+              </div>
+              <div className="card-text">
+                <i>{title.description}</i>
+              </div>
+            </div>
+          </Link>
+          <div className="card-footer">
+            <small>{title.votes}</small>
+            <FontAwesomeIcon
+              className="icon"
+              onClick={() => vote("up", title.id)}
+              icon={faThumbsUp}
+            />
+            <FontAwesomeIcon
+              className="icon"
+              onClick={() => vote("down", title.id)}
+              icon={faThumbsDown}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default TitleList;

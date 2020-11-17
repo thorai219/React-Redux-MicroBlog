@@ -53,7 +53,7 @@ function removePost(postId) {
 
 export function removePostAPI(id) {
   return async function (dispatch) {
-    const res = await axios.delete(`${API_URL}/${id}`);
+    await axios.delete(`${API_URL}/${id}`);
     return dispatch(removePost(id));
   };
 }
